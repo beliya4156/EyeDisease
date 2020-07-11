@@ -1,10 +1,11 @@
 
-#!unzip eye-disease-dataset.zip
 
 # After runnig this file run final.py 
 
-import matplotlib.pyplot as plt
-from sklearn.preprocessing import LabelEncoder
+
+
+#!unzip "/content/drive/My Drive/retinopathy_dataset.zip"
+
 import cv2
 from sklearn.model_selection import train_test_split
 from sklearn.utils import shuffle
@@ -25,7 +26,7 @@ import numpy as np
 import os
 from numpy import argmax
 
-PATH = r"/content/Eye_diseases"
+PATH = r"/content/retinopathy_dataset"
 data_dir_list = os.listdir(PATH)
 data_dir_list
 
@@ -61,8 +62,9 @@ input_shape = img_data[0].shape
 print("number of samples",num_of_samples)
 print("target column before encoding",target_column)
 
-Labelencoder = LabelEncoder()
-target_column = Labelencoder.fit_transform(target_column)
+from sklearn.preprocessing import LabelEncoder
+labelEncoder = LabelEncoder()
+target_column = labelEncoder.fit_transform(target_column)
 np.unique(target_column)
 
 target_column
@@ -93,8 +95,6 @@ first_Mod.summary()
 
 first_Mod.fit(X_train,y_train,batch_size=batch_size,epochs=num_epoch,verbose=1,validation_data=(X_test,y_test))
 
-# Saving model 
+# Saving model
 from keras.models import load_model
 first_Mod.save('my_model.h5')  # creates a HDF5 file 'my_model.h5'
-
-
